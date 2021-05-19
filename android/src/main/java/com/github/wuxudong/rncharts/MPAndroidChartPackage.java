@@ -13,6 +13,7 @@ import com.github.wuxudong.rncharts.charts.HorizontalBarChartManager;
 import com.github.wuxudong.rncharts.charts.LineChartManager;
 import com.github.wuxudong.rncharts.charts.PieChartManager;
 import com.github.wuxudong.rncharts.charts.RadarChartManager;
+import com.github.wuxudong.rncharts.charts.RoundCandleStickChartManager;
 import com.github.wuxudong.rncharts.charts.ScatterChartManager;
 
 import java.util.Arrays;
@@ -38,6 +39,7 @@ public class MPAndroidChartPackage implements ReactPackage {
                 new HorizontalBarChartManager(),
                 new BubbleChartManager(),
                 new CandleStickChartManager(),
+                new RoundCandleStickChartManager(),
                 new LineChartManager(),
                 new PieChartManager(),
                 new RadarChartManager(),

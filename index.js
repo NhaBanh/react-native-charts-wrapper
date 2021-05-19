@@ -7,6 +7,7 @@ import PieChart from './lib/PieChart';
 import RadarChart from './lib/RadarChart';
 import ScatterChart from './lib/ScatterChart';
 import CombinedChart from './lib/CombinedChart';
+import RoundCandleStickChart from './lib/RoundCandleStickChart';
 
 module.exports = {
   BarChart,
@@ -17,5 +18,6 @@ module.exports = {
   PieChart,
   RadarChart,
   ScatterChart,
-  CombinedChart
+  CombinedChart,
+  RoundCandleStickChart
 };
