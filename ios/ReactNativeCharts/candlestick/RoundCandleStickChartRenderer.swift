@@ -20,7 +20,7 @@ import Charts
 #endif
 
 
-open class RoundCandleStickChartRenderer: LineScatterCandleRadarRenderer
+open class RoundCandleStickChartRenderer: CustomLineScatterCandleRadarRenderer
 {
     @objc open weak var dataProvider: CandleChartDataProvider?
     
@@ -60,7 +60,7 @@ open class RoundCandleStickChartRenderer: LineScatterCandleRadarRenderer
         
         let phaseY = animator.phaseY
         let barSpace = dataSet.barSpace
-        let radius = 10
+        let radius = CGFloat(10)
 
         let showCandleBar = dataSet.showCandleBar
         
