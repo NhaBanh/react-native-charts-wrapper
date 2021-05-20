@@ -25,9 +25,9 @@ class CandleDataExtract : DataExtract {
         
         // CandleDataSet only config
         if config["barSpace"].float != nil {
-            candleDataSet.barSpace = CGFloat(config["barShadowColor"].floatValue)
+            candleDataSet.barSpace = CGFloat(config["barSpace"].floatValue)
         }
-        
+
         
         if config["shadowWidth"].float != nil {
             candleDataSet.shadowWidth = CGFloat(config["shadowWidth"].floatValue)

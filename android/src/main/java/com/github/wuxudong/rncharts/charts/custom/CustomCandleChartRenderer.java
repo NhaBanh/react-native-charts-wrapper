@@ -158,7 +158,7 @@ public class CustomCandleChartRenderer extends LineScatterCandleRadarRenderer {
                 trans.pointValuesToPixel(mBodyBuffers);
 
                 // draw body differently for increasing and decreasing entry
-                float radius = 8f;
+                float radius = 10f;
                 if (open > close) { // decreasing
 
                     if (dataSet.getDecreasingColor() == ColorTemplate.COLOR_NONE) {
