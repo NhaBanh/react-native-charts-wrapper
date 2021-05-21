@@ -14,6 +14,7 @@
 
 import Foundation
 import CoreGraphics
+import Charts
 
 @objc(CustomLineScatterCandleRadarRenderer)
 open class CustomLineScatterCandleRadarRenderer: CustomBarLineScatterCandleBubbleRenderer
