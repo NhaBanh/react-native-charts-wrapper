@@ -5,6 +5,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.github.wuxudong.rncharts.charts.BIOHCandleStickChartManager;
 import com.github.wuxudong.rncharts.charts.BarChartManager;
 import com.github.wuxudong.rncharts.charts.BubbleChartManager;
 import com.github.wuxudong.rncharts.charts.CandleStickChartManager;
@@ -40,6 +41,7 @@ public class MPAndroidChartPackage implements ReactPackage {
                 new BubbleChartManager(),
                 new CandleStickChartManager(),
                 new RoundCandleStickChartManager(),
+                new BIOHCandleStickChartManager(),
                 new LineChartManager(),
                 new PieChartManager(),
                 new RadarChartManager(),

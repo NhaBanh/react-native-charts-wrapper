@@ -1,14 +1,16 @@
 //
-//  RNRoundCandleStickChartView.swift
-//  Charts
+//  RNBIOHCandleStickChartView.swift
+//  RNCharts
 //
-//  Created by Nha Banh on 5/20/21.
+//  Created by Nha Banh on 6/8/21.
 //
+
+
 
 import Charts
 import SwiftyJSON
 
-class RNRoundCandleStickChartView: RNBarLineChartViewBase {
+class RNBIOHCandleStickChartView: RNBarLineChartViewBase {
     
     let _chart: CandleStickChartView;
     let _dataExtract : CandleDataExtract;
@@ -24,7 +26,7 @@ class RNRoundCandleStickChartView: RNBarLineChartViewBase {
     
     override init(frame: CoreGraphics.CGRect) {
         self._chart = CandleStickChartView(frame: frame)
-       self._chart.renderer = RoundCandleStickChartRenderer(dataProvider: _chart, animator: _chart.chartAnimator, viewPortHandler: _chart.viewPortHandler)
+        self._chart.renderer = BIOHCandleStickChartRenderer(dataProvider: _chart, animator: _chart.chartAnimator, viewPortHandler: _chart.viewPortHandler)
         self._dataExtract = CandleDataExtract()
         super.init(frame: frame);
       

@@ -1,5 +1,6 @@
 package com.github.wuxudong.rncharts.charts.custom;
 
+
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -22,7 +23,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.List;
 
-public class CustomCandleChartRenderer extends LineScatterCandleRadarRenderer {
+public class BIOHCandleChartRenderer extends LineScatterCandleRadarRenderer {
 
     protected CandleDataProvider mChart;
 
@@ -32,8 +33,8 @@ public class CustomCandleChartRenderer extends LineScatterCandleRadarRenderer {
     private float[] mOpenBuffers = new float[4];
     private float[] mCloseBuffers = new float[4];
 
-    public CustomCandleChartRenderer(CandleDataProvider chart, ChartAnimator animator,
-                                     ViewPortHandler viewPortHandler) {
+    public BIOHCandleChartRenderer(CandleDataProvider chart, ChartAnimator animator,
+                                   ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
         mChart = chart;
     }
@@ -171,14 +172,14 @@ public class CustomCandleChartRenderer extends LineScatterCandleRadarRenderer {
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         c.drawRoundRect(
-                                mBodyBuffers[0], mBodyBuffers[3],
-                                mBodyBuffers[2], mBodyBuffers[1]
+                                mBodyBuffers[0] - 5f, mBodyBuffers[3],
+                                mBodyBuffers[2] + 5f, mBodyBuffers[1]
                                 , radius, radius,
                                 mRenderPaint);
                     } else {
                         c.drawRect(
-                                mBodyBuffers[0], mBodyBuffers[3],
-                                mBodyBuffers[2], mBodyBuffers[1],
+                                mBodyBuffers[0] - 5f, mBodyBuffers[3],
+                                mBodyBuffers[2] + 5f, mBodyBuffers[1],
                                 mRenderPaint);
                     }
 
@@ -195,14 +196,14 @@ public class CustomCandleChartRenderer extends LineScatterCandleRadarRenderer {
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         c.drawRoundRect(
-                                mBodyBuffers[0], mBodyBuffers[1],
-                                mBodyBuffers[2], mBodyBuffers[3]
+                                mBodyBuffers[0] - 5f, mBodyBuffers[1],
+                                mBodyBuffers[2] + 5f, mBodyBuffers[3]
                                 , radius, radius,
                                 mRenderPaint);
                     } else {
                         c.drawRect(
-                                mBodyBuffers[0], mBodyBuffers[1],
-                                mBodyBuffers[2], mBodyBuffers[3],
+                                mBodyBuffers[0] - 5f, mBodyBuffers[1],
+                                mBodyBuffers[2] + 5f, mBodyBuffers[3],
                                 mRenderPaint);
                     }
 

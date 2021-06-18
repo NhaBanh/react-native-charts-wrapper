@@ -28,6 +28,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.wuxudong.rncharts.data.DataExtract;
 import com.github.wuxudong.rncharts.markers.RNRectangleMarkerView;
 import com.github.wuxudong.rncharts.markers.RNCircleMarkerView;
+import com.github.wuxudong.rncharts.markers.custom.RNBIOHMarkerView;
 import com.github.wuxudong.rncharts.utils.BridgeUtils;
 import com.github.wuxudong.rncharts.utils.EasingFunctionHelper;
 import com.github.wuxudong.rncharts.utils.TypefaceUtils;
@@ -229,10 +230,10 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
             durationY = propMap.getInt("durationY");
         }
         if (BridgeUtils.validate(propMap, ReadableType.String, "easingX")) {
-             easingX = EasingFunctionHelper.getEasingFunction(propMap.getString("easingX"));
+            easingX = EasingFunctionHelper.getEasingFunction(propMap.getString("easingX"));
         }
         if (BridgeUtils.validate(propMap, ReadableType.String, "easingY")) {
-             easingY = EasingFunctionHelper.getEasingFunction(propMap.getString("easingY"));
+            easingY = EasingFunctionHelper.getEasingFunction(propMap.getString("easingY"));
         }
 
         if (durationX != null && durationY != null) {
@@ -275,10 +276,12 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
         String markerType = propMap.hasKey("markerType") ? propMap.getString("markerType") : "";
 
         MarkerView markerView = null;
-        switch(markerType) {
+        switch (markerType) {
             case "circle":
                 markerView = circleMarker(chart);
-
+                break;
+            case "bioh":
+                markerView = biohMarker(chart, propMap);
                 break;
             default:
                 markerView = rectangleMarker(chart, propMap);
@@ -296,6 +299,12 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
 
     private RNCircleMarkerView circleMarker(Chart chart) {
         return new RNCircleMarkerView(chart.getContext());
+    }
+
+    private RNBIOHMarkerView biohMarker(Chart chart, ReadableMap propMap) {
+        RNBIOHMarkerView marker = new RNBIOHMarkerView(chart.getContext());
+        setMarkerParams(marker, propMap);
+        return marker;
     }
 
     private void setMarkerParams(RNRectangleMarkerView marker, ReadableMap propMap) {
@@ -338,6 +347,52 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
         }
     }
 
+    private void setMarkerParams(RNBIOHMarkerView marker, ReadableMap propMap) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                BridgeUtils.validate(propMap, ReadableType.Number, "markerColor")) {
+            marker.setBackgroundTintList(ColorStateList.valueOf(propMap.getInt("markerColor")));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.Number, "digits")) {
+            marker.setDigits(propMap.getInt("digits"));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.Number, "textColor")) {
+            marker.setTextColor1(propMap.getInt("textColor"));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.Number, "textColor2")) {
+            marker.setTextColor2(propMap.getInt("textColor2"));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
+            marker.setTextSize1(propMap.getInt("textSize"));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize2")) {
+            marker.setTextSize2(propMap.getInt("textSize2"));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.String, "textAlign")) {
+
+            int alignment = View.TEXT_ALIGNMENT_CENTER;
+            switch (propMap.getString("textAlign")) {
+                case "left":
+                    alignment = View.TEXT_ALIGNMENT_TEXT_START;
+                    break;
+                case "center":
+                    alignment = View.TEXT_ALIGNMENT_CENTER;
+                    break;
+                case "right":
+                    alignment = View.TEXT_ALIGNMENT_TEXT_END;
+                    break;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                marker.setTextAlignment(alignment);
+            }
+        }
+    }
+
     /**
      * General axis config details: https://github.com/PhilJay/MPAndroidChart/wiki/The-Axis
      */
@@ -367,7 +422,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
             axis.setTypeface(TypefaceUtils.getTypeface(chart, propMap));
         }
         if (BridgeUtils.validate(propMap, ReadableType.Number, "yOffset")) {
-            axis.setYOffset((float)(propMap.getDouble("yOffset")));
+            axis.setYOffset((float) (propMap.getDouble("yOffset")));
         }
         if (BridgeUtils.validate(propMap, ReadableType.Number, "gridColor")) {
             axis.setGridColor(propMap.getInt("gridColor"));
@@ -515,7 +570,6 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
     }
 
 
-
     /**
      * Dataset config details: https://github.com/PhilJay/MPAndroidChart/wiki/DataSet-classes-in-detail
      */
@@ -568,7 +622,8 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
         super.onAfterUpdateTransaction(chart);
         chart.notifyDataSetChanged();
         onAfterDataSetChanged(chart);
-        chart.postInvalidate();;
+        chart.postInvalidate();
+        ;
     }
 
 }
