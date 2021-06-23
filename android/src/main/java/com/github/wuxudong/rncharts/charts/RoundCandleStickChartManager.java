@@ -3,7 +3,7 @@ package com.github.wuxudong.rncharts.charts;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.data.CandleEntry;
-import com.github.wuxudong.rncharts.charts.custom.RoundCandleChartRenderer;
+import com.github.wuxudong.rncharts.charts.custom.BIOHCandleChartRenderer;
 import com.github.wuxudong.rncharts.data.CandleDataExtract;
 import com.github.wuxudong.rncharts.data.DataExtract;
 import com.github.wuxudong.rncharts.listener.RNOnChartGestureListener;
@@ -19,7 +19,7 @@ public class RoundCandleStickChartManager extends BarLineChartBaseManager<Candle
     @Override
     protected CandleStickChart createViewInstance(ThemedReactContext reactContext) {
         CandleStickChart candleStickChart = new CandleStickChart(reactContext);
-        candleStickChart.setRenderer(new RoundCandleChartRenderer(
+        candleStickChart.setRenderer(new BIOHCandleChartRenderer(
                 candleStickChart,
                 candleStickChart.getAnimator(),
                 candleStickChart.getViewPortHandler()

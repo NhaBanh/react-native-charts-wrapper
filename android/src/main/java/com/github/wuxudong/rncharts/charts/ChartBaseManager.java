@@ -2,6 +2,7 @@ package com.github.wuxudong.rncharts.charts;
 
 import android.content.res.ColorStateList;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.facebook.react.bridge.ReadableArray;
@@ -251,7 +252,6 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
     @ReactProp(name = "xAxis")
     public void setXAxis(Chart chart, ReadableMap propMap) {
         XAxis axis = chart.getXAxis();
-
         setCommonAxisConfig(chart, axis, propMap);
 
         if (BridgeUtils.validate(propMap, ReadableType.Number, "labelRotationAngle")) {
@@ -302,7 +302,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
     }
 
     private RNBIOHMarkerView biohMarker(Chart chart, ReadableMap propMap) {
-        RNBIOHMarkerView marker = new RNBIOHMarkerView(chart.getContext());
+        RNBIOHMarkerView marker = new RNBIOHMarkerView(chart.getContext(), chart.getHeight());
         setMarkerParams(marker, propMap);
         return marker;
     }

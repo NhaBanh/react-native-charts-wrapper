@@ -24,7 +24,7 @@ class RNRoundCandleStickChartView: RNBarLineChartViewBase {
     
     override init(frame: CoreGraphics.CGRect) {
         self._chart = CandleStickChartView(frame: frame)
-       self._chart.renderer = RoundCandleStickChartRenderer(dataProvider: _chart, animator: _chart.chartAnimator, viewPortHandler: _chart.viewPortHandler)
+        self._chart.renderer = RoundCandleStickChartRenderer(dataProvider: _chart, animator: _chart.chartAnimator, viewPortHandler: _chart.viewPortHandler)
         self._dataExtract = CandleDataExtract()
         super.init(frame: frame);
       

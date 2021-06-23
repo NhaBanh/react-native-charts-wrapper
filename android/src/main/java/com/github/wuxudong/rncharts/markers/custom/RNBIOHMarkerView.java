@@ -39,13 +39,15 @@ public class RNBIOHMarkerView extends MarkerView {
     private Drawable backgroundTopRight = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
 
     private int digits = 0;
+    private float chartHeight = 0;
 
-    public RNBIOHMarkerView(Context context) {
+    public RNBIOHMarkerView(Context context, float chartHeight) {
         super(context, R.layout.bioh_marker);
 
         tvContent1 = (TextView) findViewById(R.id.rectangle_tvContent1);
         tvContent2 = (TextView) findViewById(R.id.rectangle_tvContent2);
         ln = (LinearLayout) findViewById(R.id.linear_layout);
+        this.chartHeight = chartHeight;
     }
 
     public void setDigits(int digits) {
@@ -146,7 +148,7 @@ public class RNBIOHMarkerView extends MarkerView {
                 ln.setBackground(background);
             }
         }
-        offset2.y = -200;
+        offset2.y = chartHeight;
         return offset2;
     }
 
