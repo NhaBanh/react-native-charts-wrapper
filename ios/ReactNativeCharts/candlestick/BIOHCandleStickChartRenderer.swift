@@ -139,9 +139,9 @@ open class BIOHCandleStickChartRenderer: BIOHLineScatterCandleRadarRenderer
                 
                 // calculate the body
                 
-                _bodyRect.origin.x = CGFloat(xPos) - 0.5 + barSpace
+                _bodyRect.origin.x = CGFloat(xPos) - 1 + (10 * barSpace)
                 _bodyRect.origin.y = CGFloat(close * phaseY)
-                _bodyRect.size.width = (CGFloat(xPos) + 0.5 - barSpace) - _bodyRect.origin.x
+                _bodyRect.size.width = (CGFloat(xPos) + 1 - (10 * barSpace)) - _bodyRect.origin.x
                 _bodyRect.size.height = CGFloat(open * phaseY) - _bodyRect.origin.y
 
                 trans.rectValueToPixel(&_bodyRect)

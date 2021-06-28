@@ -151,9 +151,9 @@ public class BIOHCandleChartRenderer extends LineScatterCandleRadarRenderer {
 
                 // calculate the body
 
-                mBodyBuffers[0] = xPos - 0.5f + barSpace;
+                 mBodyBuffers[0] = xPos - 1f + barSpace*10;
                 mBodyBuffers[1] = close * phaseY;
-                mBodyBuffers[2] = (xPos + 0.5f - barSpace);
+                mBodyBuffers[2] = (xPos + 1f - barSpace*10);
                 mBodyBuffers[3] = open * phaseY;
 
                 trans.pointValuesToPixel(mBodyBuffers);
