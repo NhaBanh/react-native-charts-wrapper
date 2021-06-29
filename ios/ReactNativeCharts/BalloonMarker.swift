@@ -20,7 +20,7 @@ import SwiftyJSON;
 
 open class BalloonMarker: MarkerView {
     open var color: UIColor?
-    open var arrowSize = CGSize(width: 15, height: 11)
+    open var arrowSize = CGSize(width: 0, height: 11)
     open var font: UIFont?
     open var textColor: UIColor?
     open var textColor2: UIColor?
@@ -41,7 +41,8 @@ open class BalloonMarker: MarkerView {
     fileprivate var _paragraphStyle: NSMutableParagraphStyle?
     fileprivate var _drawAttributes = [NSAttributedString.Key: Any]()
     
-    
+    fileprivate var corner = CGFloat(0)
+
     public init(color: UIColor, font: UIFont, textColor: UIColor, textAlign: NSTextAlignment) {
         super.init(frame: CGRect.zero);
         self.color = color
@@ -61,6 +62,8 @@ open class BalloonMarker: MarkerView {
         
         _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
         _paragraphStyle?.alignment = textAlign
+        
+        corner = CGFloat(15)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -115,87 +118,96 @@ open class BalloonMarker: MarkerView {
     }
 
     func drawCenterRect(context: CGContext, rect: CGRect) {
-
         context.setFillColor((color?.cgColor)!)
         context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height))
+        context.move(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + corner), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height - corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + rect.size.height - arrowSize.height), control:  CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height))
         context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
         context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width / 2.0, y: rect.origin.y + rect.size.height))
         context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
+        context.addLine(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + rect.size.height - arrowSize.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - arrowSize.height - corner), control:  CGPoint(x: rect.origin.x, y: rect.origin.y  + rect.size.height - arrowSize.height ))
+        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + corner))
+        context.addQuadCurve(to:  CGPoint(x: rect.origin.x + corner, y: rect.origin.y), control:  CGPoint(x: rect.origin.x, y: rect.origin.y))
         context.fillPath()
-
     }
 
     func drawLeftRect(context: CGContext, rect: CGRect) {
         context.setFillColor((color?.cgColor)!)
         context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + arrowSize.width / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
+        context.move(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + corner), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height - corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + rect.size.height - arrowSize.height), control:  CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + rect.size.height - arrowSize.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - arrowSize.height - corner), control:  CGPoint(x: rect.origin.x, y: rect.origin.y  + rect.size.height - arrowSize.height ))
+        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + corner))
+        context.addQuadCurve(to:  CGPoint(x: rect.origin.x + corner, y: rect.origin.y), control:  CGPoint(x: rect.origin.x, y: rect.origin.y))
         context.fillPath()
-
     }
 
     func drawRightRect(context: CGContext, rect: CGRect) {
         context.setFillColor((color?.cgColor)!)
         context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x  + rect.size.width - arrowSize.width / 2.0, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
+        context.move(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + corner), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + rect.size.height - arrowSize.height), control:  CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height - arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + rect.size.height - arrowSize.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - arrowSize.height - corner), control:  CGPoint(x: rect.origin.x, y: rect.origin.y  + rect.size.height - arrowSize.height ))
+        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + corner))
+        context.addQuadCurve(to:  CGPoint(x: rect.origin.x + corner, y: rect.origin.y), control:  CGPoint(x: rect.origin.x, y: rect.origin.y))
         context.fillPath()
-
     }
     
     func drawTopCenterRect(context: CGContext, rect: CGRect) {
-        
         context.setFillColor((color?.cgColor)!)
         context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x + rect.size.width / 2.0, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width + arrowSize.width) / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + (rect.size.width - arrowSize.width) / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width / 2.0, y: rect.origin.y))
+        context.move(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + arrowSize.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height + corner), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height + rect.size.height - corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + rect.size.height), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + rect.size.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - corner), control: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
+        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height + corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + arrowSize.height), control: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height))
         context.fillPath()
-        
     }
 
     func drawTopLeftRect(context: CGContext, rect: CGRect) {
         context.setFillColor((color?.cgColor)!)
         context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + arrowSize.width / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
+        context.move(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + arrowSize.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height + corner), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height + rect.size.height - corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + rect.size.height), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + rect.size.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - corner), control: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
+        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height + corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + arrowSize.height), control: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height))
         context.fillPath()
-
     }
 
     func drawTopRightRect(context: CGContext, rect: CGRect) {
         context.setFillColor((color?.cgColor)!)
         context.beginPath()
-        context.move(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
-        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - arrowSize.height / 2.0, y: rect.origin.y + arrowSize.height))
-        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y))
+        context.move(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + arrowSize.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height + corner), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + arrowSize.height + rect.size.height - corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + rect.size.width - corner, y: rect.origin.y + rect.size.height), control: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height))
+        context.addLine(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + rect.size.height))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height - corner), control: CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height))
+        context.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height + corner))
+        context.addQuadCurve(to: CGPoint(x: rect.origin.x + corner, y: rect.origin.y + arrowSize.height), control: CGPoint(x: rect.origin.x, y: rect.origin.y + arrowSize.height))
         context.fillPath()
-
     }
 
 
