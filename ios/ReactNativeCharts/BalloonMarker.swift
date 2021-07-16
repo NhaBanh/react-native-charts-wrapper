@@ -22,6 +22,8 @@ open class BalloonMarker: MarkerView {
     open var color: UIColor?
     open var arrowSize = CGSize(width: 0, height: 11)
     open var font: UIFont?
+    open var font2: UIFont?
+
     open var textColor: UIColor?
     open var textColor2: UIColor?
 
@@ -53,10 +55,11 @@ open class BalloonMarker: MarkerView {
         _paragraphStyle?.alignment = textAlign
     }
     
-    public init(color: UIColor, font: UIFont, textColor: UIColor, textColor2: UIColor, textAlign: NSTextAlignment) {
+    public init(color: UIColor, font1: UIFont,font2: UIFont, textColor: UIColor, textColor2: UIColor, textAlign: NSTextAlignment) {
         super.init(frame: CGRect.zero);
         self.color = color
-        self.font = font
+        self.font = font1
+        self.font2 = font2
         self.textColor = textColor
         self.textColor2 = textColor2
         
@@ -79,9 +82,9 @@ open class BalloonMarker: MarkerView {
 
 
         var rect = CGRect(origin: point, size: _size)
-        
+        rect.origin.y = 0
         if point.y - _size.height < 0 {
-          
+            rect.origin.y =  -self.arrowSize.height
             if point.x - _size.width / 2.0 < 0 {
                 drawTopLeftRect(context: context, rect: rect)
             } else if (chart != nil && point.x + width - _size.width / 2.0 > (chart?.bounds.width)!) {
@@ -92,12 +95,10 @@ open class BalloonMarker: MarkerView {
                 drawTopCenterRect(context: context, rect: rect)
             }
             
-            rect.origin.y += self.topInsets.top
+            rect.origin.y = self.insets.top
             rect.size.height -= self.topInsets.top + self.topInsets.bottom
 
         } else {
-            
-            rect.origin.y -= _size.height
             
             if point.x - _size.width / 2.0 < 0 {
                 drawLeftRect(context: context, rect: rect)
@@ -109,11 +110,10 @@ open class BalloonMarker: MarkerView {
                 drawCenterRect(context: context, rect: rect)
             }
             
-            rect.origin.y += self.insets.top
+            rect.origin.y = self.insets.top
             rect.size.height -= self.insets.top + self.insets.bottom
 
         }
-        
         return rect
     }
 

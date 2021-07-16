@@ -2,6 +2,7 @@ package com.github.wuxudong.rncharts.markers.custom;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -39,7 +40,6 @@ public class RNBIOHMarkerView extends MarkerView {
     private Drawable backgroundTopRight = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
 
     private int digits = 0;
-    private float chartHeight = 0;
 
     public RNBIOHMarkerView(Context context, float chartHeight) {
         super(context, R.layout.bioh_marker);
@@ -148,7 +148,7 @@ public class RNBIOHMarkerView extends MarkerView {
                 ln.setBackground(background);
             }
         }
-        offset2.y = chartHeight;
+        offset2.y = -posY - 20f;
         return offset2;
     }
 
@@ -166,6 +166,14 @@ public class RNBIOHMarkerView extends MarkerView {
 
     public void setTextSize2(int size) {
         tvContent2.setTextSize(size);
+    }
+
+    public void setTextTypeface1(Typeface tf) {
+        tvContent1.setTypeface(tf);
+    }
+
+    public void setTextTypeface2(Typeface tf) {
+        tvContent2.setTypeface(tf);
     }
 
     public void setTextAlignment(int alignment) {

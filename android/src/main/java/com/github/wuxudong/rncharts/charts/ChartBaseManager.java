@@ -5,9 +5,11 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.github.mikephil.charting.animation.Easing;
@@ -303,7 +305,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
 
     private RNBIOHMarkerView biohMarker(Chart chart, ReadableMap propMap) {
         RNBIOHMarkerView marker = new RNBIOHMarkerView(chart.getContext(), chart.getHeight());
-        setMarkerParams(marker, propMap);
+        setMarkerParams(chart, marker, propMap);
         return marker;
     }
 
@@ -347,7 +349,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
         }
     }
 
-    private void setMarkerParams(RNBIOHMarkerView marker, ReadableMap propMap) {
+    private void setMarkerParams(Chart chart, RNBIOHMarkerView marker, ReadableMap propMap) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                 BridgeUtils.validate(propMap, ReadableType.Number, "markerColor")) {
             marker.setBackgroundTintList(ColorStateList.valueOf(propMap.getInt("markerColor")));
@@ -371,6 +373,18 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
 
         if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize2")) {
             marker.setTextSize2(propMap.getInt("textSize2"));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
+            WritableMap params = Arguments.createMap();
+            params.putString("fontFamily", propMap.getString("fontFamily1"));
+            marker.setTextTypeface1(TypefaceUtils.getTypeface(chart, params));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily2")) {
+            WritableMap params = Arguments.createMap();
+            params.putString("fontFamily", propMap.getString("fontFamily2"));
+            marker.setTextTypeface2(TypefaceUtils.getTypeface(chart, propMap));
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.String, "textAlign")) {

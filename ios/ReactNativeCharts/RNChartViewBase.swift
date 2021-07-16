@@ -440,7 +440,7 @@ open class RNChartViewBase: UIView, ChartViewDelegate {
             return
         }
 
-        var markerFont = UIFont.systemFont(ofSize: 12.0)
+        var markerFont = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
 
         if json["textSize"].float != nil {
             markerFont = markerFont.withSize(CGFloat(json["textSize"].floatValue))
@@ -458,10 +458,32 @@ open class RNChartViewBase: UIView, ChartViewDelegate {
             )
             chart.marker = marker
             marker.chartView = chart
-        case "bioh":
+            
+         case "bioh":
+            var markerFont1 = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
+            var markerFont2 = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
+            
+            
+            if json["fontFamily1"].exists() {
+                let dicFont1: NSDictionary = ["fontFamily": json["fontFamily1"].string!]
+                let jsonFont1 = BridgeUtils.toJson(dicFont1)
+                if let font = FontUtils.getFont(jsonFont1) {
+                    markerFont1 = font
+                }
+            }
+            
+            if json["fontFamily2"].exists() {
+                let dicFont2: NSDictionary = ["fontFamily": json["fontFamily2"].string!]
+                let jsonFont2 = BridgeUtils.toJson(dicFont2)
+                if let font = FontUtils.getFont(jsonFont2) {
+                    markerFont2 = font
+                }
+            }
+            
             let marker = BalloonMarker(
                 color: RCTConvert.uiColor(json["markerColor"].intValue),
-                font: markerFont,
+                font1: markerFont1,
+                font2: markerFont2,
                 textColor: RCTConvert.uiColor(json["textColor"].intValue),
                 textColor2: RCTConvert.uiColor(json["textColor2"].intValue),
                 textAlign: RCTConvert.nsTextAlignment(json["textAlign"].stringValue)
