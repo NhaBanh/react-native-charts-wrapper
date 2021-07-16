@@ -47,7 +47,6 @@ public class RNBIOHMarkerView extends MarkerView {
         tvContent1 = (TextView) findViewById(R.id.rectangle_tvContent1);
         tvContent2 = (TextView) findViewById(R.id.rectangle_tvContent2);
         ln = (LinearLayout) findViewById(R.id.linear_layout);
-        this.chartHeight = chartHeight;
     }
 
     public void setDigits(int digits) {
