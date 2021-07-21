@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@drawable/biohmarker"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="6dp"
         android:gravity="center"
         android:orientation="horizontal">
 
