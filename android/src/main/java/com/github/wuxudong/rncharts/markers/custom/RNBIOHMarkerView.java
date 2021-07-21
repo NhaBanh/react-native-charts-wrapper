@@ -31,14 +31,6 @@ public class RNBIOHMarkerView extends MarkerView {
     private TextView tvContent2;
     private LinearLayout ln;
 
-    private Drawable backgroundLeft = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
-    private Drawable background = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
-    private Drawable backgroundRight = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
-
-    private Drawable backgroundTopLeft = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
-    private Drawable backgroundTop = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
-    private Drawable backgroundTopRight = ResourcesCompat.getDrawable(getResources(), R.drawable.biohmarker, null);
-
     private int digits = 0;
 
     public RNBIOHMarkerView(Context context, float chartHeight) {
@@ -122,31 +114,10 @@ public class RNBIOHMarkerView extends MarkerView {
 
         if (posX + offset2.x < 0) {
             offset2.x = 0;
-
-            if (posY + offset2.y < 0) {
-                offset2.y = 0;
-                ln.setBackground(backgroundTopLeft);
-            } else {
-                ln.setBackground(backgroundLeft);
-            }
-
         } else if (chart != null && posX + width + offset2.x > chart.getWidth()) {
             offset2.x = -width;
-
-            if (posY + offset2.y < 0) {
-                offset2.y = 0;
-                ln.setBackground(backgroundTopRight);
-            } else {
-                ln.setBackground(backgroundRight);
-            }
-        } else {
-            if (posY + offset2.y < 0) {
-                offset2.y = 0;
-                ln.setBackground(backgroundTop);
-            } else {
-                ln.setBackground(background);
-            }
         }
+
         offset2.y = -posY - 20f;
         return offset2;
     }
