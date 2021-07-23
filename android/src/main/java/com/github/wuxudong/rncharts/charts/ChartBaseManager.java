@@ -384,7 +384,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
         if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily2")) {
             WritableMap params = Arguments.createMap();
             params.putString("fontFamily", propMap.getString("fontFamily2"));
-            marker.setTextTypeface2(TypefaceUtils.getTypeface(chart, propMap));
+            marker.setTextTypeface2(TypefaceUtils.getTypeface(chart, params));
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.String, "textAlign")) {
