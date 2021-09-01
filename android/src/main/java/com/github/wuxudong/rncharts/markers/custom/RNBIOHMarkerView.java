@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -120,6 +122,11 @@ public class RNBIOHMarkerView extends MarkerView {
                         text2 = parts[1];
                         text3 = parts[2];
                         text4 = parts[3];
+
+                        hrImg.setVisibility(VISIBLE);
+                        hrUpImg.setVisibility(VISIBLE);
+                        hrDownImg.setVisibility(VISIBLE);
+
                         tvContent1.setTextColor(color1);
                         tvContent1.setTextSize(textSize1);
                         tvContent1.setTypeface(tf1);
@@ -242,21 +249,6 @@ public class RNBIOHMarkerView extends MarkerView {
         tvContent2.setTextSize(alignment);
         tvContent3.setTextSize(alignment);
         tvContent4.setTextSize(alignment);
-    }
-
-    public void setHrImg(Drawable drawable) {
-//        hrImg.setImageDrawable(drawable);
-        hrImg.setVisibility(VISIBLE);
-    }
-
-    public void setHrUpImg(Drawable drawable) {
-//        hrUpImg.setImageDrawable(drawable);
-        hrUpImg.setVisibility(VISIBLE);
-    }
-
-    public void setHrDownImg(Drawable drawable) {
-//        hrDownImg.setImageDrawable(drawable);
-        hrDownImg.setVisibility(VISIBLE);
     }
 
     public void setBackgroundTintList(ColorStateList list) {

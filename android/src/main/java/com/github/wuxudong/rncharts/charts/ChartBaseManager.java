@@ -396,67 +396,6 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
             marker.setTextTypeface2(TypefaceUtils.getTypeface(chart, params));
         }
 
-        if (BridgeUtils.validate(propMap, ReadableType.Map, "iconHr")) {
-            ReadableMap params = propMap.getMap("iconHr");
-            int imageHeight = 12;
-            TextPaint myTextPaint = new TextPaint();
-            String text = "01234567890";
-
-            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
-                myTextPaint.setTextSize(propMap.getInt("textSize"));
-            }
-            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
-                WritableMap paramsFont = Arguments.createMap();
-                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
-                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
-            }
-            Rect bounds = new Rect();
-            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
-            imageHeight = bounds.height();
-
-            marker.setHrImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
-        }
-        if (BridgeUtils.validate(propMap, ReadableType.Map, "iconHrUp")) {
-            ReadableMap params = propMap.getMap("iconHrUp");
-            int imageHeight = 12;
-            TextPaint myTextPaint = new TextPaint();
-            String text = "01234567890";
-
-            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
-                myTextPaint.setTextSize(propMap.getInt("textSize"));
-            }
-            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
-                WritableMap paramsFont = Arguments.createMap();
-                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
-                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
-            }
-            Rect bounds = new Rect();
-            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
-            imageHeight = bounds.height();
-
-            marker.setHrUpImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
-        }
-        if (BridgeUtils.validate(propMap, ReadableType.Map, "iconHrDown")) {
-            ReadableMap params = propMap.getMap("iconHrDown");
-            int imageHeight = 12;
-            TextPaint myTextPaint = new TextPaint();
-            String text = "01234567890";
-
-            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
-                myTextPaint.setTextSize(propMap.getInt("textSize"));
-            }
-            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
-                WritableMap paramsFont = Arguments.createMap();
-                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
-                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
-            }
-            Rect bounds = new Rect();
-            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
-            imageHeight = bounds.height();
-
-            marker.setHrDownImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
-        }
-
         if (BridgeUtils.validate(propMap, ReadableType.String, "textAlign")) {
 
             int alignment = View.TEXT_ALIGNMENT_CENTER;

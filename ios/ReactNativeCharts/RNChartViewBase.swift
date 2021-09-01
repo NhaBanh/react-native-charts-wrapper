@@ -481,16 +481,6 @@ open class RNChartViewBase: UIView, ChartViewDelegate {
                     markerFont2 = font
                 }
             }
-            
-            if json["iconHr"].exists() {
-                uiImageHr = RCTConvert.uiImage(json["iconHr"].dictionaryObject);
-            }
-            if json["iconHrUp"].exists() {
-                uiImageHrUp = RCTConvert.uiImage(json["iconHrUp"].dictionaryObject);
-            }
-            if json["iconHrDown"].exists() {
-                uiImageHrDown = RCTConvert.uiImage(json["iconHrDown"].dictionaryObject);
-            }
 
             let marker = BalloonMarker(
                 color: RCTConvert.uiColor(json["markerColor"].intValue),
@@ -499,9 +489,9 @@ open class RNChartViewBase: UIView, ChartViewDelegate {
                 textColor: RCTConvert.uiColor(json["textColor"].intValue),
                 textColor2: RCTConvert.uiColor(json["textColor2"].intValue),
                 textAlign: RCTConvert.nsTextAlignment(json["textAlign"].stringValue),
-                imageHr: uiImageHr,
-                imageHrUp: uiImageHrUp,
-                imageHrDown: uiImageHrDown
+                imageHr: UIImage(named: "ecg.png"),
+                imageHrUp: UIImage(named: "hr_up.png"),
+                imageHrDown: UIImage(named: "hr_down.png")
             )
             chart.marker = marker
             marker.chartView = chart
