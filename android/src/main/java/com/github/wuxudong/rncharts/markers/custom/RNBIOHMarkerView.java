@@ -2,10 +2,14 @@ package com.github.wuxudong.rncharts.markers.custom;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,18 +31,33 @@ import java.util.Map;
 
 public class RNBIOHMarkerView extends MarkerView {
 
-    private TextView tvContent1;
-    private TextView tvContent2;
+    private TextView tvContent1, tvContent2, tvContent3, tvContent4;
+    private TextView separate1, separate2;
     private LinearLayout ln;
+    private ImageView hrImg, hrUpImg, hrDownImg;
+
+    private  int color1, color2;
+    private  int textSize1, textSize2;
+    private Typeface tf1, tf2;
 
     private int digits = 0;
 
-    public RNBIOHMarkerView(Context context, float chartHeight) {
+    public RNBIOHMarkerView(Context context) {
         super(context, R.layout.bioh_marker);
 
         tvContent1 = (TextView) findViewById(R.id.rectangle_tvContent1);
         tvContent2 = (TextView) findViewById(R.id.rectangle_tvContent2);
+        tvContent3 = (TextView) findViewById(R.id.rectangle_tvContent3);
+        tvContent4 = (TextView) findViewById(R.id.rectangle_tvContent4);
+
+        separate1 = (TextView) findViewById(R.id.separate1);
+        separate2 = (TextView) findViewById(R.id.separate2);
+
         ln = (LinearLayout) findViewById(R.id.linear_layout);
+
+        hrImg = (ImageView) findViewById(R.id.hr);
+        hrUpImg = (ImageView) findViewById(R.id.hrUp);
+        hrDownImg = (ImageView) findViewById(R.id.hrDown);
     }
 
     public void setDigits(int digits) {
@@ -49,6 +68,8 @@ public class RNBIOHMarkerView extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
         String text1 = "";
         String text2 = "";
+        String text3 = "";
+        String text4 = "";
 
         if (e instanceof CandleEntry) {
             CandleEntry ce = (CandleEntry) e;
@@ -61,12 +82,67 @@ public class RNBIOHMarkerView extends MarkerView {
             if (((Map) e.getData()).containsKey("marker")) {
                 Object marker = ((Map) e.getData()).get("marker");
                 String[] parts = marker.toString().split("@#@");
-                if(parts.length >= 1){
-                    text1 = parts[0];
+
+                switch (parts.length) {
+                    case 1:
+                        text1 = parts[0];
+                        tvContent1.setTextColor(color1);
+                        tvContent1.setTextSize(textSize1);
+                        tvContent1.setTypeface(tf1);
+                        break;
+                    case 2:
+                        text1 = parts[0];
+                        text2 = parts[1];
+                        tvContent1.setTextColor(color1);
+                        tvContent1.setTextSize(textSize1);
+                        tvContent1.setTypeface(tf1);
+                        tvContent2.setTextColor(color2);
+                        tvContent2.setTextSize(textSize2);
+                        tvContent2.setTypeface(tf2);
+                        break;
+                    case 3:
+                        text1 = parts[0];
+                        text2 = parts[1];
+                        text3 = parts[2];
+                        tvContent1.setTextColor(color1);
+                        tvContent1.setTextSize(textSize1);
+                        tvContent1.setTypeface(tf1);
+                        tvContent2.setTextColor(color1);
+                        tvContent2.setTextSize(textSize1);
+                        tvContent2.setTypeface(tf1);
+                        tvContent3.setTextColor(color2);
+                        tvContent3.setTextSize(textSize2);
+                        tvContent3.setTypeface(tf2);
+                        separate1.setVisibility(VISIBLE);
+                        break;
+                    case 4:
+                        text1 = parts[0];
+                        text2 = parts[1];
+                        text3 = parts[2];
+                        text4 = parts[3];
+                        tvContent1.setTextColor(color1);
+                        tvContent1.setTextSize(textSize1);
+                        tvContent1.setTypeface(tf1);
+                        tvContent2.setTextColor(color1);
+                        tvContent2.setTextSize(textSize1);
+                        tvContent2.setTypeface(tf1);
+                        tvContent3.setTextColor(color1);
+                        tvContent3.setTextSize(textSize1);
+                        tvContent3.setTypeface(tf1);
+                        tvContent4.setTextColor(color2);
+                        tvContent4.setTextSize(textSize2);
+                        tvContent4.setTypeface(tf2);
+                        separate1.setVisibility(VISIBLE);
+                        separate2.setVisibility(VISIBLE);
+                        break;
+                    default:
                 }
-                if(parts.length >= 2){
-                    text2 = parts[1];
-                }
+                separate1.setTextColor(Color.parseColor("#D2D4D6"));
+                separate1.setTextSize(textSize1);
+                separate1.setTypeface(tf1);
+                separate2.setTextColor(Color.parseColor("#D2D4D6"));
+                separate2.setTextSize(textSize1);
+                separate2.setTypeface(tf1);
 
                 if (highlight.getStackIndex() != -1 && marker instanceof List) {
                     text1 = ((List) marker).get(highlight.getStackIndex()).toString();
@@ -83,11 +159,26 @@ public class RNBIOHMarkerView extends MarkerView {
             tvContent1.setVisibility(VISIBLE);
             ln.setVisibility(VISIBLE);
         }
+
         if (TextUtils.isEmpty(text2)) {
             tvContent2.setVisibility(INVISIBLE);
         } else {
-            tvContent2.setText(" " + text2);
+            tvContent2.setText(text2);
             tvContent2.setVisibility(VISIBLE);
+        }
+
+        if (TextUtils.isEmpty(text3)) {
+            tvContent3.setVisibility(INVISIBLE);
+        } else {
+            tvContent3.setText(text3);
+            tvContent3.setVisibility(VISIBLE);
+        }
+
+        if (TextUtils.isEmpty(text4)) {
+            tvContent4.setVisibility(INVISIBLE);
+        } else {
+            tvContent4.setText(text4);
+            tvContent4.setVisibility(VISIBLE);
         }
 
         super.refreshContent(e, highlight);
@@ -123,32 +214,54 @@ public class RNBIOHMarkerView extends MarkerView {
     }
 
     public void setTextColor1(int color) {
-        tvContent1.setTextColor(color);
+        color1 = color;
     }
 
     public void setTextColor2(int color) {
-        tvContent2.setTextColor(color);
+        color2 = color;
     }
 
     public void setTextSize1(int size) {
-        tvContent1.setTextSize(size);
+        textSize1 = size;
     }
 
     public void setTextSize2(int size) {
-        tvContent2.setTextSize(size);
+        textSize2 = size;
     }
 
     public void setTextTypeface1(Typeface tf) {
-        tvContent1.setTypeface(tf);
+        tf1 = tf;
     }
 
     public void setTextTypeface2(Typeface tf) {
-        tvContent2.setTypeface(tf);
+        tf2 = tf;
     }
 
     public void setTextAlignment(int alignment) {
         tvContent1.setTextSize(alignment);
         tvContent2.setTextSize(alignment);
+        tvContent3.setTextSize(alignment);
+        tvContent4.setTextSize(alignment);
+    }
+
+    public void setHrImg(Drawable drawable) {
+//        hrImg.setImageDrawable(drawable);
+        hrImg.setVisibility(VISIBLE);
+    }
+
+    public void setHrImg(Bitmap bitmap) {
+        hrImg.setImageBitmap(bitmap);
+        hrImg.setVisibility(VISIBLE);
+    }
+
+    public void setHrUpImg(Drawable drawable) {
+//        hrUpImg.setImageDrawable(drawable);
+        hrUpImg.setVisibility(VISIBLE);
+    }
+
+    public void setHrDownImg(Drawable drawable) {
+//        hrDownImg.setImageDrawable(drawable);
+        hrDownImg.setVisibility(VISIBLE);
     }
 
     public void setBackgroundTintList(ColorStateList list) {

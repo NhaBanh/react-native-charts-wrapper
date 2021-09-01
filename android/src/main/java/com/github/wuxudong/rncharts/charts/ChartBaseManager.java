@@ -1,7 +1,12 @@
 package com.github.wuxudong.rncharts.charts;
 
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Build;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
 
@@ -12,6 +17,7 @@ import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.views.imagehelper.ImageSource;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -33,9 +39,11 @@ import com.github.wuxudong.rncharts.markers.RNRectangleMarkerView;
 import com.github.wuxudong.rncharts.markers.RNCircleMarkerView;
 import com.github.wuxudong.rncharts.markers.custom.RNBIOHMarkerView;
 import com.github.wuxudong.rncharts.utils.BridgeUtils;
+import com.github.wuxudong.rncharts.utils.DrawableUtils;
 import com.github.wuxudong.rncharts.utils.EasingFunctionHelper;
 import com.github.wuxudong.rncharts.utils.TypefaceUtils;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -304,7 +312,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
     }
 
     private RNBIOHMarkerView biohMarker(Chart chart, ReadableMap propMap) {
-        RNBIOHMarkerView marker = new RNBIOHMarkerView(chart.getContext(), chart.getHeight());
+        RNBIOHMarkerView marker = new RNBIOHMarkerView(chart.getContext());
         setMarkerParams(chart, marker, propMap);
         return marker;
     }
@@ -369,6 +377,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
 
         if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
             marker.setTextSize1(propMap.getInt("textSize"));
+            marker.setTextSize2(propMap.getInt("textSize"));
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize2")) {
@@ -385,6 +394,70 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
             WritableMap params = Arguments.createMap();
             params.putString("fontFamily", propMap.getString("fontFamily2"));
             marker.setTextTypeface2(TypefaceUtils.getTypeface(chart, params));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.Map, "iconHr")) {
+            ReadableMap params = propMap.getMap("iconHr");
+            int imageHeight = 12;
+            TextPaint myTextPaint = new TextPaint();
+            String text = "01234567890";
+
+            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
+                myTextPaint.setTextSize(propMap.getInt("textSize"));
+            }
+            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
+                WritableMap paramsFont = Arguments.createMap();
+                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
+                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
+            }
+            Rect bounds = new Rect();
+            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
+            imageHeight = bounds.height();
+            int resourceId = chart.getContext().getResources().getIdentifier("src_asset_png_ecg", "drawable", chart.getContext().getPackageName());
+            Bitmap image = BitmapFactory.decodeResource(chart.getContext().getResources(), resourceId);
+            marker.setHrImg(image);
+
+//            marker.setHrImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
+        }
+        if (BridgeUtils.validate(propMap, ReadableType.Map, "iconHrUp")) {
+            ReadableMap params = propMap.getMap("iconHrUp");
+            int imageHeight = 12;
+            TextPaint myTextPaint = new TextPaint();
+            String text = "01234567890";
+
+            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
+                myTextPaint.setTextSize(propMap.getInt("textSize"));
+            }
+            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
+                WritableMap paramsFont = Arguments.createMap();
+                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
+                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
+            }
+            Rect bounds = new Rect();
+            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
+            imageHeight = bounds.height();
+
+            marker.setHrUpImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
+        }
+        if (BridgeUtils.validate(propMap, ReadableType.Map, "iconHrDown")) {
+            ReadableMap params = propMap.getMap("iconHrDown");
+            int imageHeight = 12;
+            TextPaint myTextPaint = new TextPaint();
+            String text = "01234567890";
+
+            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
+                myTextPaint.setTextSize(propMap.getInt("textSize"));
+            }
+            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
+                WritableMap paramsFont = Arguments.createMap();
+                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
+                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
+            }
+            Rect bounds = new Rect();
+            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
+            imageHeight = bounds.height();
+
+            marker.setHrDownImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.String, "textAlign")) {

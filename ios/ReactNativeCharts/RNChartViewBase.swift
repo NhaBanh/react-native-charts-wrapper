@@ -462,8 +462,10 @@ open class RNChartViewBase: UIView, ChartViewDelegate {
          case "bioh":
             var markerFont1 = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
             var markerFont2 = UIFont.systemFont(ofSize: 12.0, weight: .semibold)
-            
-            
+            var uiImageHr: UIImage? = nil
+            var uiImageHrUp: UIImage? = nil
+            var uiImageHrDown: UIImage? = nil
+
             if json["fontFamily1"].exists() {
                 let dicFont1: NSDictionary = ["fontFamily": json["fontFamily1"].string!]
                 let jsonFont1 = BridgeUtils.toJson(dicFont1)
@@ -480,13 +482,26 @@ open class RNChartViewBase: UIView, ChartViewDelegate {
                 }
             }
             
+            if json["iconHr"].exists() {
+                uiImageHr = RCTConvert.uiImage(json["iconHr"].dictionaryObject);
+            }
+            if json["iconHrUp"].exists() {
+                uiImageHrUp = RCTConvert.uiImage(json["iconHrUp"].dictionaryObject);
+            }
+            if json["iconHrDown"].exists() {
+                uiImageHrDown = RCTConvert.uiImage(json["iconHrDown"].dictionaryObject);
+            }
+
             let marker = BalloonMarker(
                 color: RCTConvert.uiColor(json["markerColor"].intValue),
                 font1: markerFont1,
                 font2: markerFont2,
                 textColor: RCTConvert.uiColor(json["textColor"].intValue),
                 textColor2: RCTConvert.uiColor(json["textColor2"].intValue),
-                textAlign: RCTConvert.nsTextAlignment(json["textAlign"].stringValue)
+                textAlign: RCTConvert.nsTextAlignment(json["textAlign"].stringValue),
+                imageHr: uiImageHr,
+                imageHrUp: uiImageHrUp,
+                imageHrDown: uiImageHrDown
             )
             chart.marker = marker
             marker.chartView = chart
