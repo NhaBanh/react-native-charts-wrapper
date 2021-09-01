@@ -26,9 +26,10 @@
 
         <ImageView
             android:id="@+id/hr"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:layout_marginLeft="2dp"
+            android:layout_marginTop="1dp"
             android:src="@drawable/ecg"
             android:visibility="gone" />
 
@@ -55,10 +56,11 @@
 
         <ImageView
             android:id="@+id/hrUp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:layout_marginLeft="2dp"
             android:src="@drawable/hr_up"
+            android:layout_marginTop="1dp"
             android:visibility="gone" />
 
         <TextView
@@ -84,10 +86,11 @@
 
         <ImageView
             android:id="@+id/hrDown"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:layout_marginLeft="2dp"
             android:src="@drawable/hr_down"
+            android:layout_marginTop="1dp"
             android:visibility="gone" />
 
         <TextView
