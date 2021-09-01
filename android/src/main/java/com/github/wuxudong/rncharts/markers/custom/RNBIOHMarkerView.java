@@ -249,11 +249,6 @@ public class RNBIOHMarkerView extends MarkerView {
         hrImg.setVisibility(VISIBLE);
     }
 
-    public void setHrImg(Bitmap bitmap) {
-        hrImg.setImageBitmap(bitmap);
-        hrImg.setVisibility(VISIBLE);
-    }
-
     public void setHrUpImg(Drawable drawable) {
 //        hrUpImg.setImageDrawable(drawable);
         hrUpImg.setVisibility(VISIBLE);

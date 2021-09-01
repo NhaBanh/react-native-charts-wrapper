@@ -413,11 +413,8 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
             Rect bounds = new Rect();
             myTextPaint.getTextBounds(text, 0, text.length(), bounds);
             imageHeight = bounds.height();
-            int resourceId = chart.getContext().getResources().getIdentifier("src_asset_png_ecg", "drawable", chart.getContext().getPackageName());
-            Bitmap image = BitmapFactory.decodeResource(chart.getContext().getResources(), resourceId);
-            marker.setHrImg(image);
 
-//            marker.setHrImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
+            marker.setHrImg(DrawableUtils.drawableFromUrl(params.getString("uri"), imageHeight*4, imageHeight*4));
         }
         if (BridgeUtils.validate(propMap, ReadableType.Map, "iconHrUp")) {
             ReadableMap params = propMap.getMap("iconHrUp");
