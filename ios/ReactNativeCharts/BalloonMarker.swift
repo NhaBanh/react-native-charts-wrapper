@@ -338,7 +338,7 @@ open class BalloonMarker: MarkerView {
         
         _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor2
         let rectText2 = CGRect(
-            x: rectText1.origin.x + _labelSize1.width + 4.0,
+            x: rectText1.origin.x + rectText1.width + 4.0,
             y: rect.origin.y,
             width: _labelSize2.width,
             height: rect.height)
