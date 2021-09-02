@@ -338,7 +338,7 @@ open class BalloonMarker: MarkerView {
         
         _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor2
         let rectText2 = CGRect(
-            x: rectText1.origin.x + _labelSize1.width,
+            x: rectText1.origin.x + _labelSize1.width + 4.0,
             y: rect.origin.y,
             width: _labelSize2.width,
             height: rect.height)
@@ -382,6 +382,7 @@ open class BalloonMarker: MarkerView {
                     label3 = parts[2];
                     separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 2
                     additionalWidth = CGFloat(16.0)
+                    imageWidth += _labelSize1.height * 2
                 case 4:
                     label1 = parts[0];
                     label2 = parts[1];
@@ -390,6 +391,7 @@ open class BalloonMarker: MarkerView {
                     label4 = parts[3];
                     separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 3
                     additionalWidth = CGFloat(20.0)
+                    imageWidth += _labelSize1.height * 3
                 default: break
                 }
                 
@@ -431,16 +433,6 @@ open class BalloonMarker: MarkerView {
         _labelSize2 = labelns2?.size(withAttributes: _drawAttributes) ?? CGSize.zero
         _labelSize3 = labelns3?.size(withAttributes: _drawAttributes) ?? CGSize.zero
         _labelSize4 = labelns4?.size(withAttributes: _drawAttributes) ?? CGSize.zero
-        
-        if (imageHR != nil) {
-            imageWidth += _labelSize1.height
-        }
-        if (imageHRUp != nil) {
-            imageWidth += _labelSize1.height
-        }
-        if (imageHRDown != nil) {
-            imageWidth += _labelSize1.height
-        }
         
         _size.width = (_labelSize1.width + _labelSize2.width + _labelSize3.width + _labelSize4.width + separateWidth + imageWidth + additionalWidth) + self.insets.left + self.insets.right
         _size.height = _labelSize1.height + self.insets.top + self.insets.bottom
