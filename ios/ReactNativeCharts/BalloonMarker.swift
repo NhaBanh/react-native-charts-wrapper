@@ -308,14 +308,38 @@ open class BalloonMarker: MarkerView {
                 height: rect.height)
             imageHRDown?.draw(in: imageHrDownRect)
             
-            //text4
-            _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor2
-            let rectText4 = CGRect(
-                x: imageHrDownRect.origin.x + imageHrDownRect.width + 2.0,
-                y: rect.origin.y,
-                width: _labelSize4.width,
-                height: rect.height)
-            labelns4?.draw(in: rectText4, withAttributes: _drawAttributes)
+            if (labelns4 != nil) {
+                if(labelns4!.contains("at")){
+                    //text4
+                    _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor2
+                    let rectText4 = CGRect(
+                        x: imageHrDownRect.origin.x + imageHrDownRect.width + 4.0,
+                        y: rect.origin.y,
+                        width: _labelSize4.width,
+                        height: rect.height)
+                    labelns4?.draw(in: rectText4, withAttributes: _drawAttributes)
+                }else{
+                    _drawAttributes[NSAttributedString.Key.foregroundColor] = separateColor
+                    let rectSeparate3 = CGRect(
+                        x: imageHrDownRect.origin.x + imageHrDownRect.width + 2.0,
+                        y: rect.origin.y,
+                        width: separateWidth.width,
+                        height: rect.height)
+                    separateLine.draw(in: rectSeparate3, withAttributes: _drawAttributes)
+                    
+                    //text4
+                    _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor2
+                    let rectText4 = CGRect(
+                        x: rectSeparate3.origin.x + rectSeparate3.width + 4.0,
+                        y: rect.origin.y,
+                        width: _labelSize4.width,
+                        height: rect.height)
+                    labelns4?.draw(in: rectText4, withAttributes: _drawAttributes)
+                }
+            }
+
+            
+          
             
             
             
@@ -389,8 +413,13 @@ open class BalloonMarker: MarkerView {
                     label3 = parts[2];
                     label4 = parts[3];
                     label4 = parts[3];
-                    separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 3
-                    additionalWidth = CGFloat(20.0)
+                    if(label4.contains("at")){
+                        separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 2
+                        additionalWidth = CGFloat(20.0)
+                    }else{
+                        separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 3
+                        additionalWidth = CGFloat(22.0)
+                    }
                     imageWidth += _labelSize1.height * 3
                 default: break
                 }

@@ -94,6 +94,17 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/separate3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="|"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/rectangle_tvContent4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

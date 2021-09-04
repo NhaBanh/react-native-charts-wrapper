@@ -34,12 +34,12 @@ import java.util.Map;
 public class RNBIOHMarkerView extends MarkerView {
 
     private TextView tvContent1, tvContent2, tvContent3, tvContent4;
-    private TextView separate1, separate2;
+    private TextView separate1, separate2, separate3;
     private LinearLayout ln;
     private ImageView hrImg, hrUpImg, hrDownImg;
 
-    private  int color1, color2;
-    private  int textSize1, textSize2;
+    private int color1, color2;
+    private int textSize1, textSize2;
     private Typeface tf1, tf2;
 
     private int digits = 0;
@@ -54,6 +54,7 @@ public class RNBIOHMarkerView extends MarkerView {
 
         separate1 = (TextView) findViewById(R.id.separate1);
         separate2 = (TextView) findViewById(R.id.separate2);
+        separate3 = (TextView) findViewById(R.id.separate3);
 
         ln = (LinearLayout) findViewById(R.id.linear_layout);
 
@@ -141,6 +142,9 @@ public class RNBIOHMarkerView extends MarkerView {
                         tvContent4.setTypeface(tf2);
                         separate1.setVisibility(VISIBLE);
                         separate2.setVisibility(VISIBLE);
+                        if(!text4.contains("at")){
+                            separate3.setVisibility(VISIBLE);
+                        }
                         break;
                     default:
                 }
@@ -150,6 +154,9 @@ public class RNBIOHMarkerView extends MarkerView {
                 separate2.setTextColor(Color.parseColor("#D2D4D6"));
                 separate2.setTextSize(textSize1);
                 separate2.setTypeface(tf1);
+                separate3.setTextColor(Color.parseColor("#D2D4D6"));
+                separate3.setTextSize(textSize1);
+                separate3.setTypeface(tf1);
 
                 if (highlight.getStackIndex() != -1 && marker instanceof List) {
                     text1 = ((List) marker).get(highlight.getStackIndex()).toString();
