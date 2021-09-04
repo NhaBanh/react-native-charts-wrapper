@@ -384,6 +384,11 @@ open class BalloonMarker: MarkerView {
         var imageWidth = CGFloat(0.0)
         var additionalWidth = CGFloat(0.0)
         
+        _drawAttributes.removeAll()
+        _drawAttributes[NSAttributedString.Key.font] = self.font
+        _drawAttributes[NSAttributedString.Key.paragraphStyle] = _paragraphStyle
+        _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor
+        
         if let candleEntry = entry as? CandleChartDataEntry {
             label1 = candleEntry.close.description
         } else {
@@ -400,13 +405,14 @@ open class BalloonMarker: MarkerView {
                 case 2:
                     label1 = parts[0];
                     label2 = parts[1];
+                    additionalWidth = CGFloat(2.0)
                 case 3:
                     label1 = parts[0];
                     label2 = parts[1];
                     label3 = parts[2];
                     separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 2
-                    additionalWidth = CGFloat(16.0)
-                    imageWidth += _labelSize1.height * 2
+                    additionalWidth = CGFloat(18.0)
+                    imageWidth = (label1 as NSString).size(withAttributes: _drawAttributes).height * 2
                 case 4:
                     label1 = parts[0];
                     label2 = parts[1];
@@ -415,12 +421,12 @@ open class BalloonMarker: MarkerView {
                     label4 = parts[3];
                     if(label4.contains("at")){
                         separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 2
-                        additionalWidth = CGFloat(20.0)
+                        additionalWidth = CGFloat(22.0)
                     }else{
                         separateWidth = separateLine.size(withAttributes: _drawAttributes).width * 3
-                        additionalWidth = CGFloat(22.0)
+                        additionalWidth = CGFloat(24.0)
                     }
-                    imageWidth += _labelSize1.height * 3
+                    imageWidth = (label1 as NSString).size(withAttributes: _drawAttributes).height * 3
                 default: break
                 }
                 
@@ -452,11 +458,6 @@ open class BalloonMarker: MarkerView {
         }else{
             labelns4 = nil
         }
-        
-        _drawAttributes.removeAll()
-        _drawAttributes[NSAttributedString.Key.font] = self.font
-        _drawAttributes[NSAttributedString.Key.paragraphStyle] = _paragraphStyle
-        _drawAttributes[NSAttributedString.Key.foregroundColor] = self.textColor
         
         _labelSize1 = labelns1?.size(withAttributes: _drawAttributes) ?? CGSize.zero
         _labelSize2 = labelns2?.size(withAttributes: _drawAttributes) ?? CGSize.zero

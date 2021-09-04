@@ -166,7 +166,7 @@ public class RNBIOHMarkerView extends MarkerView {
         }
 
         if (TextUtils.isEmpty(text1)) {
-            tvContent1.setVisibility(INVISIBLE);
+            tvContent1.setVisibility(GONE);
             ln.setVisibility(INVISIBLE);
         } else {
             tvContent1.setText(text1);
@@ -175,21 +175,21 @@ public class RNBIOHMarkerView extends MarkerView {
         }
 
         if (TextUtils.isEmpty(text2)) {
-            tvContent2.setVisibility(INVISIBLE);
+            tvContent2.setVisibility(GONE);
         } else {
             tvContent2.setText(text2);
             tvContent2.setVisibility(VISIBLE);
         }
 
         if (TextUtils.isEmpty(text3)) {
-            tvContent3.setVisibility(INVISIBLE);
+            tvContent3.setVisibility(GONE);
         } else {
             tvContent3.setText(text3);
             tvContent3.setVisibility(VISIBLE);
         }
 
         if (TextUtils.isEmpty(text4)) {
-            tvContent4.setVisibility(INVISIBLE);
+            tvContent4.setVisibility(GONE);
         } else {
             tvContent4.setText(text4);
             tvContent4.setVisibility(VISIBLE);
