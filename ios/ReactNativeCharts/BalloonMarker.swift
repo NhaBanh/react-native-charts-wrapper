@@ -257,7 +257,7 @@ open class BalloonMarker: MarkerView {
                 x: rectText1.origin.x + rectText1.width + 2.0,
                 y: rect.origin.y,
                 width: _labelSize1.height,
-                height: rect.height)
+                height: _labelSize1.height)
             imageHR?.draw(in: imageHrRect)
             
             _drawAttributes[NSAttributedString.Key.foregroundColor] = separateColor
@@ -281,7 +281,7 @@ open class BalloonMarker: MarkerView {
                 x: rectText2.origin.x + rectText2.width + 2.0,
                 y: rect.origin.y,
                 width: _labelSize1.height,
-                height: rect.height)
+                height: _labelSize1.height)
             imageHRUp?.draw(in: imageHrUpRect)
             
             _drawAttributes[NSAttributedString.Key.foregroundColor] = separateColor
@@ -305,7 +305,7 @@ open class BalloonMarker: MarkerView {
                 x: rectText3.origin.x + rectText3.width + 2.0,
                 y: rect.origin.y,
                 width: _labelSize1.height,
-                height: rect.height)
+                height: _labelSize1.height)
             imageHRDown?.draw(in: imageHrDownRect)
             
             if (labelns4 != nil) {
