@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/NhaBanh/react-native-charts-wrapper"
   },
-  "version": "0.5.102",
+  "version": "0.5.103",
   "description": "A react-native charts support both android and iOS.",
   "author": "nhabanh",
   "license": "MIT",
