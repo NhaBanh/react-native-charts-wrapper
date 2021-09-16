@@ -285,8 +285,9 @@ public abstract class BarLineChartBaseManager<T extends BarLineChartBase, U exte
                 "moveViewTo", MOVE_VIEW_TO,
                 "moveViewToX", MOVE_VIEW_TO_X,
                 "moveViewToAnimated", MOVE_VIEW_TO_ANIMATED,
-                "fitScreen", FIT_SCREEN,
                 "highlights", HIGHLIGHTS,
+                "centerViewTo", CENTER_VIEW_TO,
+                "centerViewToAnimated", CENTER_VIEW_TO_ANIMATED,
                 "setDataAndLockIndex", SET_DATA_AND_LOCK_INDEX);
 
         if (commandsMap != null) {

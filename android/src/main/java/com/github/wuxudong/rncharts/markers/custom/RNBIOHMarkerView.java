@@ -4,19 +4,11 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.MarkerView;
@@ -43,9 +35,11 @@ public class RNBIOHMarkerView extends MarkerView {
     private Typeface tf1, tf2;
 
     private int digits = 0;
+    private Context context;
 
     public RNBIOHMarkerView(Context context) {
         super(context, R.layout.bioh_marker);
+        this.context = context;
 
         tvContent1 = (TextView) findViewById(R.id.rectangle_tvContent1);
         tvContent2 = (TextView) findViewById(R.id.rectangle_tvContent2);
@@ -249,6 +243,24 @@ public class RNBIOHMarkerView extends MarkerView {
 
     public void setTextTypeface2(Typeface tf) {
         tf2 = tf;
+    }
+
+    public void setHrImg(Bitmap bitmap, int size) {
+        hrImg.setImageBitmap(bitmap);
+        hrImg.getLayoutParams().height = size;
+        hrImg.getLayoutParams().width = size;
+    }
+
+    public void setHrUpImg(Bitmap bitmap, int size) {
+        hrUpImg.setImageBitmap(bitmap);
+        hrUpImg.getLayoutParams().height = size;
+        hrUpImg.getLayoutParams().width = size;
+    }
+
+    public void setHrDownImg(Bitmap bitmap, int size) {
+        hrDownImg.setImageBitmap(bitmap);
+        hrDownImg.getLayoutParams().height = size;
+        hrDownImg.getLayoutParams().width = size;
     }
 
     public void setTextAlignment(int alignment) {

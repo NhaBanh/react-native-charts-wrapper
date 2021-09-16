@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.text.TextPaint;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
@@ -394,6 +395,72 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
             WritableMap params = Arguments.createMap();
             params.putString("fontFamily", propMap.getString("fontFamily2"));
             marker.setTextTypeface2(TypefaceUtils.getTypeface(chart, params));
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.String, "iconHr")) {
+            String encodedImage = propMap.getString("iconHr");
+            int imageHeight = 12;
+            TextPaint myTextPaint = new TextPaint();
+            String text = "01234567890";
+
+            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
+                myTextPaint.setTextSize(propMap.getInt("textSize"));
+            }
+            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
+                WritableMap paramsFont = Arguments.createMap();
+                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
+                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
+            }
+            Rect bounds = new Rect();
+            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
+            imageHeight = bounds.height();
+            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            marker.setHrImg(imageScale, imageHeight);
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.String, "iconHrUp")) {
+            String encodedImage = propMap.getString("iconHrUp");
+            int imageHeight = 12;
+            TextPaint myTextPaint = new TextPaint();
+            String text = "01234567890";
+
+            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
+                myTextPaint.setTextSize(propMap.getInt("textSize"));
+            }
+            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
+                WritableMap paramsFont = Arguments.createMap();
+                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
+                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
+            }
+            Rect bounds = new Rect();
+            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
+            imageHeight = bounds.height();
+            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            marker.setHrUpImg(image, imageHeight);
+        }
+
+        if (BridgeUtils.validate(propMap, ReadableType.String, "iconHrDown")) {
+            String encodedImage = propMap.getString("iconHrDown");
+            int imageHeight = 12;
+            TextPaint myTextPaint = new TextPaint();
+            String text = "01234567890";
+
+            if (BridgeUtils.validate(propMap, ReadableType.Number, "textSize")) {
+                myTextPaint.setTextSize(propMap.getInt("textSize"));
+            }
+            if (BridgeUtils.validate(propMap, ReadableType.String, "fontFamily1")) {
+                WritableMap paramsFont = Arguments.createMap();
+                paramsFont.putString("fontFamily", propMap.getString("fontFamily1"));
+                myTextPaint.setTypeface(TypefaceUtils.getTypeface(chart, paramsFont));
+            }
+            Rect bounds = new Rect();
+            myTextPaint.getTextBounds(text, 0, text.length(), bounds);
+            imageHeight = bounds.height();
+            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            marker.setHrDownImg(image, imageHeight);
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.String, "textAlign")) {
